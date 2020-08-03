@@ -1,0 +1,119 @@
++ empresas
+  empresas
++ localidades
+  ufs
+  cidades
+  bairros
+  enderecos
++ pessoas
+  cargos
+  categorias
+  classificacoes
+  pessoas >
++ produtos e servicos
+  categorias de produtos e servicos
+  unidades
+  ncm
+  atributos
+  produtos >
+  serviços
+  lotes
+  kits
+  alterar custo/preço
+  impressao de etiquetas
++ financeiro
+  bancos
+  tipos de documento
+  tipos de conta
+  planos de conta
+  centro de custos
+  moedas
+  categorias de extratos
+  condicoes de pagamento (compra e venda)
+  contas bancarias >
+  contas a pagar e receber
+  lancamento de receitas e despesas
+  transferencia entre contas
+  programacao
+  planejamento de orcamento financeiro
++ cobranca
+  meios de pagamento
+  carteira de cobranca
+  especies de documento
+  instrucoes de cobranca
+  boletos >
+  remessa
+  retorno
++ comercial
+  modelos de pedidos de vendas
+  modelos de impressao de orcamento
+  orcamento >
+  ordem de serviço
+  pedido de venda
+  devolucoes
+  vale-troca
++ pdv
+  pdv
++ estoque
+  cadastro de almoxarifados
+  cotacao >
+  pedido de compra
+  entrada de produtos
+  retirada de produtos
+  transferencia entre almoxarifados
+?kernel
+
+
+--------
+empresas
+  + razao social, nome fantasia, cnpj, ie, endereco
+
+pessoas
+  pessoas
+  cargos
+  categorias
+  classificacao
+
+produtos e serviços
+  produtos
+  serviços
+  lotes
+  kits
+  alterar custo/preço
+  etiquetas
+  ...
+
+financeiro
+  contas (bancarias)
+  contas pagar e receber
+  lançamentos de receitas e despesas
+  transferências entre contas
+  programação
+  planejamento do orçamento
+  boletos
+  remessa
+  retorno
+  ...
+
+estoque
+  entrada de produtos
+  retirada de produtos
+  transferencia entre almoxarifados
+  cadastro de almoxarifados
+
+compras
+  cotacao
+  pedido de compra
+  ...
+
+comercial
+  orcamento
+  ordem de serviço
+
+vendas
+  pedido de venda
+  devolucoes
+  vale-troca
+
+pdv
+  pdv

@@ -1,0 +1,28 @@
+* Structure
+
+dotnet new classlib --name Loja.Core -f netstandard2.1
+dotnet new classlib --name Loja.Comum.Domain -f netstandard2.1
+dotnet new classlib --name Loja.Comum.Infra -f netstandard2.1
+dotnet new webapi --name Loja.Cadastros.API -f netcoreapp3.1
+dotnet new webapp --name Loja.UI.Razor -f netcoreapp3.1
+dotnet new xunit --name Loja.Tests -f netcoreapp3.1
+
+dotnet new sln --name Loja
+dotnet sln add .\src\Loja.Core\Loja.Core.csproj
+dotnet sln add .\src\Loja.Comum.Domain\Loja.Comum.Domain.csproj
+dotnet sln add .\src\Loja.Comum.Infra\Loja.Comum.Infra.csproj
+dotnet sln add .\src\Loja.Cadastros.API\Loja.Cadastros.API.csproj
+dotnet sln add .\src\Loja.UI.Razor\Loja.UI.Razor.csproj
+dotnet sln add .\src\Loja.Tests\Loja.Tests.csproj
+
+dotnet add Loja.Comum.Domain reference Loja.Core
+dotnet add Loja.Comum.Infra reference Loja.Comum.Domain
+
+* nuget packages
+
+Loja.Core:
+dotnet add package FluentValidation --version 9.0.1
+
+* Build (Dev)
+
+dotnet build Loja.sln
