@@ -1,4 +1,4 @@
-namespace Loja.Core.Models
+namespace Loja.Core.DomainObjects
 {
     public abstract class ValueObject { }
 }
