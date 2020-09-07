@@ -29,10 +29,11 @@ dotnet add package FluentValidation --version 9.0.1
 
 Loja.Core.API:
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 3.1.6
-
-Loja.Cadastros.API
 dotnet add package Microsoft.AspNetCore.Mvc.Versioning --version 4.1.1
 dotnet add package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer --version 4.1.1
+
+Loja.Cadastros.API:
+dotnet add package Microsoft.AspNetCore.Mvc.Versioning --version 4.1.1
 
 * Build (Dev)
 

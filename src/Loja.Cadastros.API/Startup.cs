@@ -1,11 +1,9 @@
-using Loja.Core.API.Middlewares;
-using Loja.Core.Notifications;
+using Loja.Cadastros.API.Configurations;
+using Loja.Core.API.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Loja.Cadastros.API
 {
@@ -20,43 +18,14 @@ namespace Loja.Cadastros.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            services.AddApiVersioning(p =>
-            {
-                p.DefaultApiVersion = new ApiVersion(1, 0);
-                p.ReportApiVersions = true;
-                p.AssumeDefaultVersionWhenUnspecified = true;
-            });
-
-            services.AddVersionedApiExplorer(p =>
-            {
-                p.GroupNameFormat = "'v'VVV";
-                p.SubstituteApiVersionInUrl = true;
-            });
-
-            services.AddScoped<INotificator, Notificator>();
+            VersioningConfiguration.AddConfiguration(services, 1, 0);
+            DependencyInjectionConfiguration.RegisterServices(services);
+            ApiConfiguration.AddConfiguration(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseMiddleware<ExceptionMiddleware>();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            ApiConfiguration.UseConfiguration(app, env);
         }
     }
 }
