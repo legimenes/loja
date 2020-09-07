@@ -1,5 +1,8 @@
+using Loja.Core.API.Configurations;
 using Loja.Core.Notifications;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Loja.Cadastros.API.Configurations
 {
@@ -8,6 +11,7 @@ namespace Loja.Cadastros.API.Configurations
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<INotificator, Notificator>();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerConfigureOptions>();
         }
     }
 }

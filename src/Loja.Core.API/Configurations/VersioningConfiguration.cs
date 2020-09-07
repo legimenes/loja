@@ -5,12 +5,13 @@ namespace Loja.Core.API.Configurations
 {
     public static class VersioningConfiguration
     {
-        public static IServiceCollection AddConfiguration(this IServiceCollection services, int majorVersion, int minorVersion)
+        public static IServiceCollection AddConfiguration(this IServiceCollection services,
+            int defaultMajorVersion, int defaultMinorVersion)
         {
             services.AddApiVersioning(p =>
             {
                 p.AssumeDefaultVersionWhenUnspecified = true;
-                p.DefaultApiVersion = new ApiVersion(majorVersion, minorVersion);
+                p.DefaultApiVersion = new ApiVersion(defaultMajorVersion, defaultMinorVersion);
                 p.ReportApiVersions = true;
             });
 
