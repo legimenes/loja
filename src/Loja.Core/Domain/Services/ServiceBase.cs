@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 using Loja.Core.Notifications;
 
-namespace Loja.Core.DomainServices
+namespace Loja.Core.Domain.Services
 {
     public abstract class ServiceBase
     {

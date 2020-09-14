@@ -1,6 +1,8 @@
-﻿namespace Loja.Cadastros.Domain.Localidades.Entities
+﻿using Loja.Core.Domain.Objects;
+
+namespace Loja.Cadastros.Domain.Localidades.Entities
 {
-    public class Endereco
+    public class Endereco : Entity
     {
         public Endereco()
         {

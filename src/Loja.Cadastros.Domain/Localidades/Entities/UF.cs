@@ -1,4 +1,4 @@
-﻿using Loja.Core.DomainObjects;
+﻿using Loja.Core.Domain.Objects;
 
 namespace Loja.Cadastros.Domain.Localidades.Entities
 {
