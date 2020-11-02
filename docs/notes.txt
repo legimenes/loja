@@ -1,0 +1,13 @@
+- Configuring identity on API
+services.AddDbContext<IdentityDbContext>(options =>
+    options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+
+services.AddDefaultIdentity<User>()
+    .AddRoles<Role>()
+    .AddUserStore<UserStore>()
+    .AddRoleStore<RoleStore>()
+    .AddUserManager<AppUserManager<User>>()
+    .AddRoleManager<AppRoleManager<Role>>();
+
+services.AddScoped<IUserStoreExtension<User>, UserStore>();
+services.AddScoped<IRoleStoreExtension<Role>, RoleStore>();

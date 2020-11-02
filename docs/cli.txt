@@ -1,37 +1,48 @@
-* Structure
-
+* Loja.Core
 dotnet new classlib --name Loja.Core -f netstandard2.1
-dotnet new classlib --name Loja.Core.API -f netcoreapp3.1
-dotnet new classlib --name Loja.Cadastros.Domain -f netstandard2.1
-dotnet new classlib --name Loja.Cadastros.Infra -f netstandard2.1
-dotnet new webapi --name Loja.Cadastros.API -f netcoreapp3.1
-dotnet new webapp --name Loja.UI.Razor -f netcoreapp3.1
-dotnet new xunit --name Loja.Tests -f netcoreapp3.1
-
-dotnet new sln --name Loja
-dotnet sln add .\src\Loja.Core\Loja.Core.csproj
-dotnet sln add .\src\Loja.Core.API\Loja.Core.API.csproj
-dotnet sln add .\src\Loja.Cadastros.Domain\Loja.Cadastros.Domain.csproj
-dotnet sln add .\src\Loja.Cadastros.Infra\Loja.Cadastros.Infra.csproj
-dotnet sln add .\src\Loja.Cadastros.API\Loja.Cadastros.API.csproj
-dotnet sln add .\src\Loja.UI.Razor\Loja.UI.Razor.csproj
-dotnet sln add .\src\Loja.Tests\Loja.Tests.csproj
-
-dotnet add Loja.Cadastros.Domain reference Loja.Core
-dotnet add Loja.Core.API reference Loja.Core
-dotnet add Loja.Cadastros.API reference Loja.Core.API
-dotnet add Loja.Cadastros.API reference Loja.Cadastros.Domain
-
-* nuget packages
-
-Loja.Core:
 dotnet add package FluentValidation --version 9.0.1
 
-Loja.Core.API:
+* Loja.Core.Identity
+dotnet new classlib --name Loja.Core.Identity -f netstandard2.1
+dotnet add package Microsoft.EntityFrameworkCore --version 3.1.8
+dotnet add package Microsoft.Extensions.Identity.Core --version 3.1.8
+
+* Loja.Core.API
+dotnet new classlib --name Loja.Core.API -f netcoreapp3.1
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 3.1.6
 dotnet add package Microsoft.AspNetCore.Mvc.Versioning --version 4.1.1
 dotnet add package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer --version 4.1.1
 dotnet add package Swashbuckle.AspNetCore --version 5.5.1
+dotnet add Loja.Core.API reference Loja.Core
+
+* Loja.Cadastros.Domain
+dotnet new classlib --name Loja.Cadastros.Domain -f netstandard2.1
+dotnet add Loja.Cadastros.Domain reference Loja.Core
+
+* Loja.Cadastros.Infra
+dotnet new classlib --name Loja.Cadastros.Infra -f netstandard2.1
+
+* Loja.Cadastros.API
+dotnet new webapi --name Loja.Cadastros.API -f netcoreapp3.1
+dotnet add Loja.Cadastros.API reference Loja.Core.API
+dotnet add Loja.Cadastros.API reference Loja.Cadastros.Domain
+
+* Loja.Tests
+dotnet new xunit --name Loja.Tests -f netcoreapp3.1
+
+* Loja.UI.Razor
+dotnet new webapp --name Loja.UI.Razor -f netcoreapp3.1
+
+* Solution
+dotnet new sln --name Loja
+dotnet sln add .\src\Loja.Core\Loja.Core.csproj
+dotnet sln add .\src\Loja.Core.Identity\Loja.Core.Identity.csproj
+dotnet sln add .\src\Loja.Core.API\Loja.Core.API.csproj
+dotnet sln add .\src\Loja.Cadastros.Domain\Loja.Cadastros.Domain.csproj
+dotnet sln add .\src\Loja.Cadastros.Infra\Loja.Cadastros.Infra.csproj
+dotnet sln add .\src\Loja.Cadastros.API\Loja.Cadastros.API.csproj
+dotnet sln add .\src\Loja.Tests\Loja.Tests.csproj
+dotnet sln add .\src\Loja.UI.Razor\Loja.UI.Razor.csproj
 
 * Build (Dev)
 

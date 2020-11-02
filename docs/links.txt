@@ -1,0 +1,7 @@
+https://raaaimund.github.io/tech/2019/05/13/customize-asp-net-core-identity/
+https://github.com/dotnet/aspnetcore/blob/728110ec9ee1b98b2d9c9ff247ba2955d6c05846/src/Identity/Extensions.Stores/src/IdentityUser.cs
+https://github.com/dotnet/aspnetcore/blob/3020264ec77fab00ff626f8a4e875585da864ca5/src/Identity/EntityFrameworkCore/src/RoleStore.cs
+https://github.com/dotnet/aspnetcore/blob/bfec2c14be1e65f7dd361a43950d4c848ad0cd35/src/Identity/Extensions.Stores/src/UserStoreBase.cs
+https://github.com/dotnet/aspnetcore/blob/e7b55df6c5bf40121f339c435b1d5cdbbb9a8e73/src/Identity/EntityFrameworkCore/src/UserStore.cs
+https://github.com/dotnet/aspnetcore/blob/bfec2c14be1e65f7dd361a43950d4c848ad0cd35/src/Identity/Extensions.Core/src/IUserStore.cs
+https://github.com/dotnet/aspnetcore/blob/3020264ec77fab00ff626f8a4e875585da864ca5/src/Identity/Extensions.Core/src/UserManager.cs

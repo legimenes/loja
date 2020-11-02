@@ -1,10 +1,85 @@
+CREATE TABLE features
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	name VARCHAR(50) NOT NULL
+	CONSTRAINT pkfeatures PRIMARY KEY(id)
+);
+
+CREATE TABLE permissions
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	featureid BIGINT NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	code SMALLINT NOT NULL,
+	description VARCHAR(255),
+	parameterizable tinyint NOT NULL,
+	CONSTRAINT pkpermissions PRIMARY KEY(id),
+	CONSTRAINT fkpermissions1 FOREIGN KEY(featureid) REFERENCES features(id)
+);
+
+CREATE TABLE menus
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	item VARCHAR(50) NOT NULL,
+	url VARCHAR(255),
+	ordernumber smallint,
+	parentid bigint,
+	CONSTRAINT pkmenus PRIMARY KEY(id),
+	CONSTRAINT fkmenus1 FOREIGN KEY(parentid) REFERENCES menus(id)
+);
+
+CREATE TABLE roles
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	name VARCHAR(50) NOT NULL,
+    concurrencystamp VARCHAR(36) NOT NULL,
+	CONSTRAINT pkroles PRIMARY KEY(id)
+);
+
+CREATE TABLE users
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	roleid BIGINT,
+	username VARCHAR(50) NOT NULL,
+	email VARCHAR(255),
+    fullname VARCHAR(255) NOT NULL,
+    passwordhash VARCHAR(255) NOT NULL,
+    securitystamp VARCHAR(36) NOT NULL,
+    concurrencystamp VARCHAR(36) NOT NULL,
+    creationdate DATETIME NOT NULL,
+    active TINYINT NOT NULL,
+	CONSTRAINT pkusers PRIMARY KEY(id),
+	CONSTRAINT fkusers1 FOREIGN KEY(roleid) REFERENCES roles(id)
+);
+
+CREATE TABLE rolepermissions
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	roleid BIGINT NOT NULL,
+	permissionid BIGINT NOT NULL,
+	value1 VARCHAR(255),
+	CONSTRAINT pkrolepermissions PRIMARY KEY(id),
+	CONSTRAINT fkrolepermissions1 FOREIGN KEY(roleid) REFERENCES roles(id),
+	CONSTRAINT fkrolepermissions2 FOREIGN KEY(permissionid) REFERENCES permissions(id)
+);
+
+CREATE TABLE rolemenus
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	roleid BIGINT NOT NULL,
+	menuid BIGINT NOT NULL,
+	CONSTRAINT pkrolemenus PRIMARY KEY(id),
+	CONSTRAINT fkrolemenus1 FOREIGN KEY(roleid) REFERENCES roles(id),
+	CONSTRAINT fkrolemenus2 FOREIGN KEY(menuid) REFERENCES menus(id)
+);
+
 CREATE TABLE ufs
 (
 	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
 	sigla VARCHAR(2) NOT NULL,
 	nome VARCHAR(19) NOT NULL,
     codigoibge VARCHAR(2),
-	CONSTRAINT pkufs PRIMARY KEY(Id)
+	CONSTRAINT pkufs PRIMARY KEY(id)
 );
 
 CREATE TABLE cidades
