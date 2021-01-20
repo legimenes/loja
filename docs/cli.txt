@@ -4,8 +4,10 @@ dotnet add package FluentValidation --version 9.0.1
 
 * Loja.Core.Identity
 dotnet new classlib --name Loja.Core.Identity -f netstandard2.1
+dotnet add package BouncyCastle.NetCore --version 1.8.8
 dotnet add package Microsoft.EntityFrameworkCore --version 3.1.8
 dotnet add package Microsoft.Extensions.Identity.Core --version 3.1.8
+dotnet add package System.IdentityModel.Tokens.Jwt --version 6.8.0
 
 * Loja.Core.API
 dotnet new classlib --name Loja.Core.API -f netcoreapp3.1
@@ -29,6 +31,10 @@ dotnet add Loja.Cadastros.API reference Loja.Cadastros.Domain
 
 * Loja.Tests
 dotnet new xunit --name Loja.Tests -f netcoreapp3.1
+dotnet add package Moq --version 4.15.1
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.10
+dotnet add package Microsoft.AspNetCore.Identity.UI --version 3.1.8
+dotnet add Loja.Tests reference Loja.Core.Identity
 
 * Loja.UI.Razor
 dotnet new webapp --name Loja.UI.Razor -f netcoreapp3.1

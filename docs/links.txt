@@ -5,3 +5,4 @@ https://github.com/dotnet/aspnetcore/blob/bfec2c14be1e65f7dd361a43950d4c848ad0cd
 https://github.com/dotnet/aspnetcore/blob/e7b55df6c5bf40121f339c435b1d5cdbbb9a8e73/src/Identity/EntityFrameworkCore/src/UserStore.cs
 https://github.com/dotnet/aspnetcore/blob/bfec2c14be1e65f7dd361a43950d4c848ad0cd35/src/Identity/Extensions.Core/src/IUserStore.cs
 https://github.com/dotnet/aspnetcore/blob/3020264ec77fab00ff626f8a4e875585da864ca5/src/Identity/Extensions.Core/src/UserManager.cs
+https://github.com/dotnet/aspnetcore/blob/1ca039fd14d2fc1166f2c589fbc510ab315cb18b/src/Identity/Core/src/SignInManager.cs

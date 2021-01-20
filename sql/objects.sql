@@ -1,3 +1,9 @@
+CREATE TABLE rsakeys
+(
+	privatekey VARCHAR(2048) NOT NULL,
+	publickey VARCHAR(512) NOT NULL
+);
+
 CREATE TABLE features
 (
 	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
@@ -50,6 +56,16 @@ CREATE TABLE users
     active TINYINT NOT NULL,
 	CONSTRAINT pkusers PRIMARY KEY(id),
 	CONSTRAINT fkusers1 FOREIGN KEY(roleid) REFERENCES roles(id)
+);
+
+CREATE TABLE refreshtokens
+(
+	id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+	userid BIGINT NOT NULL,
+	token VARCHAR(36) NOT NULL,
+	expirationdate DATETIME NOT NULL,
+	CONSTRAINT pkrefreshtokens PRIMARY KEY(id),
+	CONSTRAINT fkrefreshtokens FOREIGN KEY(userid) REFERENCES users(id)
 );
 
 CREATE TABLE rolepermissions
