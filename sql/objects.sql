@@ -64,6 +64,7 @@ CREATE TABLE refreshtokens
 	userid BIGINT NOT NULL,
 	token VARCHAR(36) NOT NULL,
 	expirationdate DATETIME NOT NULL,
+	accesstoken VARCHAR(1024) NOT NULL,
 	CONSTRAINT pkrefreshtokens PRIMARY KEY(id),
 	CONSTRAINT fkrefreshtokens FOREIGN KEY(userid) REFERENCES users(id)
 );

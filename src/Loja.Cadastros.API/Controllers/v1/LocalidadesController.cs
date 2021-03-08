@@ -41,5 +41,11 @@ namespace Loja.Cadastros.API.Controllers.v1
             //    return APIResult(exception);
             //}
         }
+
+        [HttpGet("cidade1")]
+        public async Task<IActionResult> ObterCidade(string teste)
+        {
+            return APIResult(null);
+        }
     }
 }

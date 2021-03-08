@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,13 +24,38 @@ namespace Loja.Core.Identity.Managers
             _tokenStore = tokenStore;
         }
 
-        public async Task<Token> GenerateToken(string issuer, string[] audience, string userId, string username,
+        public async Task<Token> GenerateToken(string token, string issuer, string[] audiences, double accessTokenExpirationInMinutes,
+            double refreshTokenExpirationInMinutes, IDictionary<string, object> customClaims = null, bool generateRefreshToken = false)
+        {
+            await _tokenStore.DeleteExpiredAsync(CancellationToken.None);
+            RefreshToken refreshToken = await _tokenStore.FindByTokenAsync(token, CancellationToken.None);
+
+            if (refreshToken == null)
+            {
+                return null;
+            }
+
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            JwtSecurityToken jwtToken = handler.ReadJwtToken(refreshToken.AccessToken);
+
+            Claim userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid);
+            Claim usernameClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
+
+            Token regeneratedToken = await GenerateToken(issuer, audiences, userIdClaim.Value, usernameClaim.Value, 
+                accessTokenExpirationInMinutes, refreshTokenExpirationInMinutes, customClaims, generateRefreshToken);
+
+            await _tokenStore.DeleteAsync(token, CancellationToken.None);
+
+            return regeneratedToken;
+        }
+
+        public async Task<Token> GenerateToken(string issuer, string[] audiences, string userId, string username,
             double accessTokenExpirationInMinutes, double refreshTokenExpirationInMinutes,
             IDictionary<string, object> customClaims = null, bool generateRefreshToken = false)
         {
             DateTimeOffset now = DateTime.UtcNow;
             DateTime refreshTokenExpirationDate = now.DateTime.AddMinutes(refreshTokenExpirationInMinutes);
-            JwtPayload tokenPayload = SetPayload(issuer, audience, userId, username, accessTokenExpirationInMinutes, now, customClaims);
+            JwtPayload tokenPayload = SetPayload(issuer, audiences, userId, username, accessTokenExpirationInMinutes, now, customClaims);
 
             Token token = new Token();
             token.AccessToken = await WriteToken(tokenPayload);
@@ -41,7 +68,8 @@ namespace Loja.Core.Identity.Managers
                 {
                     Token = token.RefreshToken,
                     UserId = long.Parse(userId),
-                    ExpirationDate = refreshTokenExpirationDate
+                    ExpirationDate = refreshTokenExpirationDate,
+                    AccessToken = token.AccessToken
                 };
 
                 IdentityResult identityResult = await _tokenStore.CreateRefreshTokenAsync(refreshToken, CancellationToken.None);
@@ -67,7 +95,7 @@ namespace Loja.Core.Identity.Managers
             return token;
         }
 
-        private JwtPayload SetPayload(string issuer, string[] audience, string userId, string username,
+        private JwtPayload SetPayload(string issuer, string[] audiences, string userId, string username,
             double accessTokenExpirationInMinutes, DateTimeOffset dateTime, IDictionary<string, object> customClaims = null)
         {
             JwtPayload payload = new JwtPayload
@@ -76,7 +104,7 @@ namespace Loja.Core.Identity.Managers
                 { "sid", userId },
                 { "sub", username },
                 { "iss", issuer },
-                { "aud", audience },
+                { "aud", audiences },
                 { "exp", DateTimeOffset.UtcNow.AddMinutes(accessTokenExpirationInMinutes).ToUnixTimeSeconds() },
                 { "nbf", dateTime.ToUnixTimeSeconds() },
                 { "iat", dateTime.ToUnixTimeSeconds() }

@@ -7,5 +7,6 @@ namespace Loja.Core.Identity.Models
         public string Token { get; set; }
         public long UserId { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public string AccessToken { get; set; }
     }
 }

@@ -10,13 +10,13 @@ using Xunit;
 
 namespace Loja.Tests.Core.Identity.IntegratedTests
 {
-    public class TokenStoreIntegratedTests : IClassFixture<TokenStoreFixture>
+    public class TokenStoreIntegratedTests : IClassFixture<DbContextFixture>
     {
         private readonly ServiceProvider _serviceProvider;
 
-        public TokenStoreIntegratedTests(TokenStoreFixture tokenStoreFixture)
+        public TokenStoreIntegratedTests(DbContextFixture dbContextFixture)
         {
-            _serviceProvider = tokenStoreFixture.ServiceProvider;
+            _serviceProvider = dbContextFixture.ServiceProvider;
         }
 
         [Fact(DisplayName="Create a new refresh token")]
@@ -29,7 +29,8 @@ namespace Loja.Tests.Core.Identity.IntegratedTests
             {
                 UserId = 3,
                 Token = Guid.NewGuid().ToString(),
-                ExpirationDate = DateTime.Now.AddMinutes(10)
+                ExpirationDate = DateTime.Now.AddMinutes(10),
+                AccessToken = ""
             };
 
             // Act

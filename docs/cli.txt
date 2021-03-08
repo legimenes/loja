@@ -5,9 +5,12 @@ dotnet add package FluentValidation --version 9.0.1
 * Loja.Core.Identity
 dotnet new classlib --name Loja.Core.Identity -f netstandard2.1
 dotnet add package BouncyCastle.NetCore --version 1.8.8
-dotnet add package Microsoft.EntityFrameworkCore --version 3.1.8
-dotnet add package Microsoft.Extensions.Identity.Core --version 3.1.8
+dotnet add package Microsoft.AspNetCore.Identity --version 2.2.0
+dotnet add package Microsoft.EntityFrameworkCore --version 3.1.12
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.12
+dotnet add package Microsoft.Extensions.Identity.Core --version 3.1.12
 dotnet add package System.IdentityModel.Tokens.Jwt --version 6.8.0
+dotnet add Loja.Core.Identity reference Loja.Core
 
 * Loja.Core.API
 dotnet new classlib --name Loja.Core.API -f netcoreapp3.1
@@ -16,6 +19,12 @@ dotnet add package Microsoft.AspNetCore.Mvc.Versioning --version 4.1.1
 dotnet add package Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer --version 4.1.1
 dotnet add package Swashbuckle.AspNetCore --version 5.5.1
 dotnet add Loja.Core.API reference Loja.Core
+
+* Loja.Identity.API
+dotnet new webapi --name Loja.Identity.API -f netcoreapp3.1
+dotnet add package FluentValidation.AspNetCore --version 9.0.1
+dotnet add Loja.Identity.API reference Loja.Core.API
+dotnet add Loja.Identity.API reference Loja.Core.Identity
 
 * Loja.Cadastros.Domain
 dotnet new classlib --name Loja.Cadastros.Domain -f netstandard2.1
@@ -32,8 +41,8 @@ dotnet add Loja.Cadastros.API reference Loja.Cadastros.Domain
 * Loja.Tests
 dotnet new xunit --name Loja.Tests -f netcoreapp3.1
 dotnet add package Moq --version 4.15.1
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.10
-dotnet add package Microsoft.AspNetCore.Identity.UI --version 3.1.8
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.12
+dotnet add package Microsoft.AspNetCore.Identity.UI --version 3.1.12
 dotnet add Loja.Tests reference Loja.Core.Identity
 
 * Loja.UI.Razor
@@ -44,6 +53,7 @@ dotnet new sln --name Loja
 dotnet sln add .\src\Loja.Core\Loja.Core.csproj
 dotnet sln add .\src\Loja.Core.Identity\Loja.Core.Identity.csproj
 dotnet sln add .\src\Loja.Core.API\Loja.Core.API.csproj
+dotnet sln add .\src\Loja.Identity.API\Loja.Identity.API.csproj
 dotnet sln add .\src\Loja.Cadastros.Domain\Loja.Cadastros.Domain.csproj
 dotnet sln add .\src\Loja.Cadastros.Infra\Loja.Cadastros.Infra.csproj
 dotnet sln add .\src\Loja.Cadastros.API\Loja.Cadastros.API.csproj

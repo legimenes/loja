@@ -1,13 +1,19 @@
-- Configuring identity on API
-services.AddDbContext<IdentityDbContext>(options =>
-    options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+https://github.com/dotnet/aspnetcore/blob/1ca039fd14d2fc1166f2c589fbc510ab315cb18b/src/Identity/Core/src/SignInManager.cs
+https://github.com/dotnet/aspnetcore/blob/b795ac3546eb3e2f47a01a64feb3020794ca33bb/src/Identity/Extensions.Core/src/UserManager.cs
+https://github.com/dotnet/aspnetcore/blob/bfec2c14be1e65f7dd361a43950d4c848ad0cd35/src/Identity/Extensions.Core/src/IUserStore.cs
+https://github.com/dotnet/aspnetcore/blob/e7b55df6c5bf40121f339c435b1d5cdbbb9a8e73/src/Identity/EntityFrameworkCore/src/UserStore.cs
 
-services.AddDefaultIdentity<User>()
-    .AddRoles<Role>()
-    .AddUserStore<UserStore>()
-    .AddRoleStore<RoleStore>()
-    .AddUserManager<AppUserManager<User>>()
-    .AddRoleManager<AppRoleManager<Role>>();
+https://github.com/dotnet/aspnetcore/blob/7203e3c4a4c3e8ccefc0135554a31c4c52f1b419/src/Identity/Extensions.Core/src/UserValidator.cs
 
-services.AddScoped<IUserStoreExtension<User>, UserStore>();
-services.AddScoped<IRoleStoreExtension<Role>, RoleStore>();
+{
+  "grant_type": "password",
+  "username": "user1",
+  "password": "Test@1",
+  "scope": "string"
+}
+
+{
+  "grant_type": "refresh_token",
+  "refresh_token": "975613f4-8878-49b0-9361-1290c53eb80b",
+  "scope": "string"
+}

@@ -16,15 +16,6 @@ namespace Loja.Core.API.Controllers
             _notifications = notifications;
         }
 
-        protected IActionResult APIResult(HttpStatusCode statusCode = HttpStatusCode.OK, object result = null)
-        {
-            if (_notifications.HasFailNotification())
-            {
-                return APIResultError();
-            }
-            
-            return Ok(result);
-        }
         protected IActionResult APIResult(Exception exception)
         {
             Notification notification = new Notification(exception);
@@ -34,8 +25,25 @@ namespace Loja.Core.API.Controllers
             
             return APIResultError();
         }
+        protected IActionResult APIResult(object result = null)
+        {
+            if (_notifications.HasFailNotification())
+            {
+                return APIResultError();
+            }
+            
+            return Ok(result);
+        }
+        protected IActionResult APIResultFail(HttpStatusCode statusCode, object result = null)
+        {
+            return APIResultError(statusCode);
+        }
+        protected IActionResult APIResultSuccess(HttpStatusCode statusCode, object result = null)
+        {
+            return StatusCode((int)statusCode, result);
+        }
 
-        private IActionResult APIResultError()
+        private IActionResult APIResultError(HttpStatusCode statusCode = HttpStatusCode.BadRequest)
         {
             List<string> messages = new List<string>();
 
@@ -44,8 +52,8 @@ namespace Loja.Core.API.Controllers
             {
                 messages.Add(fail.Value);
             }
-            
-            return BadRequest(messages);
+
+            return StatusCode((int)statusCode, messages);
         }
     }
 }
